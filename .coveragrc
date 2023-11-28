@@ -1,4 +1,4 @@
 [run]
-include = edc_form_validation_runner/*
-omit = edc_form_validation_runner/tests/*,edc_form_validation_runner/migrations/*
+include = edc_form_runners/*
+omit = edc_form_runners/tests/*,edc_form_runners/migrations/*
 branch = 1

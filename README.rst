@@ -1,32 +1,32 @@
 |pypi| |actions| |codecov| |downloads|
 
-edc-form-validation-runner
---------------------------
+edc-form-runners
+----------------
 
-Classes to re-run form validation for clinicedc/edc projects.
+Classes to manually run form validation for clinicedc/edc projects.
 
 Rerun form validation
 =====================
 
-You can use the ``FormValidationRunner`` to rerun form validation on all instances for a model.
+You can use the ``FormRunner`` to rerun form validation on all instances for a model.
 
 You could do this:
 
 .. code-block:: python
 
-    runner = FormValidationRunner(modelform)
+    runner = FormRunner(modelform)
     runner.run()
 
 
 You could also run for every model in your EDC deployment by getting the ``ModelForm`` class
-from the ``admin`` registry and running ``FormValidationRunner``:
+from the ``admin`` registry and running ``FormRunner``:
 
 .. code-block:: python
 
     from django.apps import apps as django_apps
-    from edc_form_validation_runner.form_validation_runners import (
-        FormValidationRunner,
-        FormValidationRunnerError,
+    from edc_form_runners.form_runners import (
+        FormRunner,
+        FormRunnerError,
         get_modelform_cls,
         )
 
@@ -39,12 +39,12 @@ from the ``admin`` registry and running ``FormValidationRunner``:
             print(model_cls._meta.label_lower)
             try:
                 modelform = get_modelform_cls(model_cls._meta.label_lower)
-            except FormValidationRunnerError as e:
+            except FormRunnerError as e:
                 print(e)
             else:
                 print(modelform)
                 try:
-                    runner = FormValidationRunner(modelform)
+                    runner = FormRunner(modelform)
                 except AttributeError as e:
                     print(f"{e}. See {model_cls._meta.label_lower}.")
                 else:
@@ -54,13 +54,13 @@ from the ``admin`` registry and running ``FormValidationRunner``:
                         print(f"{e}. See {model_cls._meta.label_lower}.")
 
 
-You could also create a custom ``FormValidationRunner`` for your model to add extra fields and ignore others.
+You could also create a custom ``FormRunner`` for your model to add extra fields and ignore others.
 
 For example:
 
 .. code-block:: python
 
-    class AppointmentFormValidationRunner(FormValidationRunner):
+    class AppointmentFormRunner(FormRunner):
         def __init__(self, modelform_cls: ModelForm = None, **kwargs):
             modelform_cls = modelform_cls or AppointmentForm
             extra_fieldnames = ["appt_datetime"]
@@ -73,15 +73,15 @@ For example:
             )
 
 
-.. |pypi| image:: https://img.shields.io/pypi/v/edc-form-validation-runner.svg
-  :target: https://pypi.python.org/pypi/edc-form-validation-runner
+.. |pypi| image:: https://img.shields.io/pypi/v/edc-form-runners.svg
+  :target: https://pypi.python.org/pypi/edc-form-runners
 
-.. |actions| image:: https://github.com/clinicedc/edc-form-validation-runner/workflows/build/badge.svg?branch=develop
-  :target: https://github.com/clinicedc/edc-form-validation-runner/actions?query=workflow:build
+.. |actions| image:: https://github.com/clinicedc/edc-form-runners/workflows/build/badge.svg?branch=develop
+  :target: https://github.com/clinicedc/edc-form-runners/actions?query=workflow:build
 
-.. |codecov| image:: https://codecov.io/gh/clinicedc/edc-form-validation-runner/branch/develop/graph/badge.svg
-  :target: https://codecov.io/gh/clinicedc/edc-form-validation-runner
+.. |codecov| image:: https://codecov.io/gh/clinicedc/edc-form-runners/branch/develop/graph/badge.svg
+  :target: https://codecov.io/gh/clinicedc/edc-form-runners
 
-.. |downloads| image:: https://pepy.tech/badge/edc-form-validation-runner
-   :target: https://pepy.tech/project/edc-form-validation-runner
+.. |downloads| image:: https://pepy.tech/badge/edc-form-runners
+   :target: https://pepy.tech/project/edc-form-runners
 

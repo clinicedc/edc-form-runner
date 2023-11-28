@@ -6,7 +6,7 @@ from django_audit_fields import audit_fieldset_tuple
 from edc_model_admin.dashboard import ModelAdminSubjectDashboardMixin
 from edc_sites.admin import SiteModelAdminMixin
 
-from ..admin_site import edc_form_runner_admin
+from ..admin_site import edc_form_runners_admin
 from ..models import Issue
 from .actions import (
     issue_flag_as_done,
@@ -16,7 +16,7 @@ from .actions import (
 )
 
 
-@admin.register(Issue, site=edc_form_runner_admin)
+@admin.register(Issue, site=edc_form_runners_admin)
 class IssueAdmin(
     SiteModelAdminMixin,
     ModelAdminSubjectDashboardMixin,
