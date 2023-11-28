@@ -3,12 +3,12 @@
 edc-form-runners
 ----------------
 
-Classes to manually run form validation for clinicedc/edc projects.
+Classes to manually run modelform validation for clinicedc/edc projects.
 
-Rerun form validation
-=====================
+Rerun modelform validation
+==========================
 
-You can use the ``FormRunner`` to rerun form validation on all instances for a model.
+You can use the ``FormRunner`` to rerun modelform validation on all instances for a model. 
 
 You could do this:
 
@@ -17,6 +17,7 @@ You could do this:
     runner = FormRunner(modelform)
     runner.run()
 
+If modelform validation does not validate, the validation message is captures in model ``Issue``.
 
 You could also run for every model in your EDC deployment by getting the ``ModelForm`` class
 from the ``admin`` registry and running ``FormRunner``:
