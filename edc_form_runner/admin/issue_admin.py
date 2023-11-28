@@ -6,17 +6,17 @@ from django_audit_fields import audit_fieldset_tuple
 from edc_model_admin.dashboard import ModelAdminSubjectDashboardMixin
 from edc_sites.admin import SiteModelAdminMixin
 
-from ..admin_site import edc_form_validation_admin
+from ..admin_site import edc_form_runner_admin
 from ..models import Issue
 from .actions import (
-    validation_error_flag_as_done,
-    validation_error_flag_as_in_progress,
-    validation_error_flag_as_new,
-    validation_error_refresh,
+    issue_flag_as_done,
+    issue_flag_as_in_progress,
+    issue_flag_as_new,
+    issue_refresh,
 )
 
 
-@admin.register(Issue, site=edc_form_validation_admin)
+@admin.register(Issue, site=edc_form_runner_admin)
 class IssueAdmin(
     SiteModelAdminMixin,
     ModelAdminSubjectDashboardMixin,
@@ -25,10 +25,10 @@ class IssueAdmin(
     list_per_page = 15
     show_cancel = True
     actions = [
-        validation_error_flag_as_done,
-        validation_error_flag_as_in_progress,
-        validation_error_flag_as_new,
-        validation_error_refresh,
+        issue_flag_as_done,
+        issue_flag_as_in_progress,
+        issue_flag_as_new,
+        issue_refresh,
     ]
 
     fieldsets = (

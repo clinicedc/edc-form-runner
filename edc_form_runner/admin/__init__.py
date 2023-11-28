@@ -1,1 +1,1 @@
-from .validation_errors_admin import ValidationErrorsAdmin
+from .issue_admin import IssueAdmin

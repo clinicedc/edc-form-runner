@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from edc_form_runner.form_runners import FormRunnerError
+from edc_form_runner.exceptions import FormRunnerError
 from edc_form_runner.utils import run_form_runners
 
 
