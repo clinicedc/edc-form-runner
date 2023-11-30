@@ -1,48 +1,72 @@
 from __future__ import annotations
 
-from typing import Type
+from functools import cache
+from typing import TYPE_CHECKING, Type
 
 from django.apps import apps as django_apps
 from django.contrib import admin
-from django.core.exceptions import FieldError
-from django.forms import ModelForm
 
-from .exceptions import FormRunnerError
-from .form_runner import FormRunner
+if TYPE_CHECKING:
+    from django.contrib.admin import ModelAdmin
+    from django.db.models import QuerySet
+    from django.forms import ModelForm
 
-
-def get_modelform_cls(label_lower) -> Type[ModelForm]:
-    model_cls = django_apps.get_model(label_lower)
-    for s in admin.sites.all_sites:
-        if s.name.startswith(model_cls._meta.app_label):
-            if s._registry.get(model_cls):
-                return s._registry.get(model_cls).form
-            break
-    raise FormRunnerError(f"Unable to determine modelform_cls. Got {label_lower}")
+    from .models import Issue
 
 
-def run_form_runners(
-    app_labels: list[str] | None = None, model_names: list[str] | None = None
-):
-    models = []
-    if app_labels:
-        for app_config in django_apps.get_app_configs():
-            if app_config.name in app_labels:
-                models = [model_cls for model_cls in app_config.get_models()]
-    elif model_names:
-        for model_name in model_names:
-            models.append(django_apps.get_model(model_name))
-    else:
-        raise FormRunnerError("Nothing to do.")
-    for model_cls in models:
-        print(model_cls._meta.label_lower)
-        try:
-            modelform = get_modelform_cls(model_cls._meta.label_lower)
-        except FormRunnerError as e:
-            print(e)
-        else:
-            print(modelform)
-            try:
-                FormRunner(modelform).run()
-            except (AttributeError, FieldError) as e:
-                print(f"{e}. See {model_cls._meta.label_lower}.")
+def get_issue_model_cls() -> Issue:
+    return django_apps.get_model("edc_form_runners.issue")
+
+
+@cache
+def get_modelforms_from_admin_sites() -> dict[str, Type[ModelForm]]:
+    registry = {}
+    for admin_site in admin.sites.all_sites:
+        registry.update(**get_modelforms_from_admin_site(admin_site))
+    return registry
+
+
+@cache
+def get_modeladmins_from_admin_sites() -> dict[str, Type[ModelAdmin]]:
+    registry = {}
+    for admin_site in admin.sites.all_sites:
+        registry.update(**get_modeladmins_from_admin_site(admin_site))
+    return registry
+
+
+@cache
+def get_modelforms_from_admin_site(admin_site) -> dict[str, Type[ModelForm]]:
+    registry = {}
+    for admin_class in admin_site._registry.values():
+        registry.update({admin_class.model._meta.label_lower: admin_class.form})
+    return registry
+
+
+@cache
+def get_modeladmins_from_admin_site(admin_site) -> dict[str, Type[ModelAdmin]]:
+    registry = {}
+    for admin_class in admin_site._registry.values():
+        registry.update({admin_class.model._meta.label_lower: admin_class})
+    return registry
+
+
+def get_modeladmin_cls(model_name: str) -> Type[ModelAdmin]:
+    return get_modeladmins_from_admin_sites().get(model_name)
+
+
+def get_modelform_cls(model_name: str) -> Type[ModelForm]:
+    return get_modelforms_from_admin_sites().get(model_name)
+
+
+def get_form_runner_issues(
+    model_name: str, related_visit, panel_name: str | None = None
+) -> QuerySet[Issue] | None:
+    return get_issue_model_cls().objects.filter(
+        subject_identifier=related_visit.subject_identifier,
+        label_lower=model_name,
+        visit_code=related_visit.visit_code,
+        visit_code_sequence=related_visit.visit_code_sequence,
+        visit_schedule_name=related_visit.visit_schedule_name,
+        schedule_name=related_visit.schedule_name,
+        panel_name=panel_name,
+    )
