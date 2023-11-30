@@ -69,7 +69,7 @@ Now you can use the custom ``FormRunner``:
     runner = HtnMedicationAdherenceFormRunner()
     runner.run_all()
 
-if field ``pill_count`` does not validate, the error message will not be written to the Issues table.
+if field ``pill_count`` does not validate, the error message will not be written to the ``Issues`` table.
 
 Registering Custom FormRunners
 ++++++++++++++++++++++++++++++
@@ -104,7 +104,7 @@ The ``register`` decorator registers the custom classes with ``site_form_runners
 
 ``edc_form_runners`` gets ``FormRunners`` using ``get_form_runner``.
 Given a model name in ``label_lower`` format, ``get_form_runner`` checks the site global (``site_form_runners``) and returns
-a custom ``FormRunners``, if it exists, otherwise returns the default ``FormRunner``.
+a custom ``FormRunner``, if it exists, otherwise returns the default ``FormRunner``.
 
 In your code you should also use ``get_form_runner``:
 
