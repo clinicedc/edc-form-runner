@@ -139,7 +139,7 @@ or pass one or more model names (label_lower format) separated by comma:
     >>> python manage.py run_form_runners -m intecomm_subject.vitals,intecomm_subject.dmmedicationadherence
 
 ``Issue`` ChangeList
-++++++++++++++++
+++++++++++++++++++++
 
 The ``ChangeList`` for the ``Issue model`` is available in ``edc_data_manager`` and ``edc_form_runners``.
 You would typically use the one in ``edc_data_manager``.
@@ -154,19 +154,19 @@ Integrated with the Subject Dashboard
 +++++++++++++++++++++++++++++++++++++
 
 The subject dashboard shows an "Issues" badge next to a CRF or Requisition if one exists. You can
-hover over the badge to see some of the error messages detected when the FormRunner last ran.
+hover over the badge to see some of the error messages detected when the ``FormRunner`` last ran.
 
-If a user edits a CRF with a detected issue and the form validates withour error, the
-issue instance is deleted and the badge is no longer displayed.
-(See ``signals.py``)
+If a user edits a CRF with a detected issue and the corrected form validates withour error, the
+``Issue`` instance is deleted and the badge is no longer displayed.
+(See also ``signals.py``)
 
 
-``FormRunner`` is EDC specific
-++++++++++++++++++++++++++++++
-At the moment, the ``FormRunner`` class is currently EDC specific in that it only works for models with a
+``FormRunner`` is ``clinicedc`` specific
+++++++++++++++++++++++++++++++++++++++++
+At the moment, the ``FormRunner`` class is currently ``clinicedc`` specific in that it only works for models with a
 ``subject_identifier`` or related_visit FK (e.g. ``subject_visit``).
 
-The post_save signal that updates Issues listens for EDC CRFs and Requisitions by testing if the model instance
+The post_save signal that updates Issues listens for ``clinicedc`` CRFs and Requisitions by testing if the model instance
 is an instance of ``CrfModelMixin``, ``CrfNoManagerModelMixin``or ``RequisitionModelMixin``.
 
 
