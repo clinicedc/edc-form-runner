@@ -166,8 +166,8 @@ If a user edits a CRF with a detected issue and the corrected form validates wit
 At the moment, the ``FormRunner`` class is currently ``clinicedc`` specific in that it only works for models with a
 ``subject_identifier`` or related_visit FK (e.g. ``subject_visit``).
 
-The post_save signal that updates Issues listens for ``clinicedc`` CRFs and Requisitions by testing if the model instance
-is an instance of ``CrfModelMixin``, ``CrfNoManagerModelMixin``or ``RequisitionModelMixin``.
+The ``post_save`` signal that updates Issues listens for ``clinicedc`` CRFs and Requisitions by testing if the model instance
+is an instance of ``CrfModelMixin``, ``CrfNoManagerModelMixin`` or ``RequisitionModelMixin``.
 
 
 
