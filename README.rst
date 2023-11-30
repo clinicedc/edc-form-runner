@@ -138,7 +138,7 @@ or pass one or more model names (label_lower format) separated by comma:
 
     >>> python manage.py run_form_runners -m intecomm_subject.vitals,intecomm_subject.dmmedicationadherence
 
-Issue ChangeList
+``Issue`` ChangeList
 ++++++++++++++++
 
 The ``ChangeList`` for the ``Issue model`` is available in ``edc_data_manager`` and ``edc_form_runners``.
