@@ -106,7 +106,7 @@ The ``register`` decorator registers the custom classes with ``site_form_runners
 Given a model name in ``label_lower`` format, ``get_form_runner`` checks the site global (``site_form_runners``) and returns
 a custom ``FormRunner``, if it exists, otherwise returns the default ``FormRunner``.
 
-In your code you should also use ``get_form_runner``:
+In your code you should use ``get_form_runner``:
 
 .. code-block:: python
 
