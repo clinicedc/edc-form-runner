@@ -174,8 +174,8 @@ is an instance of ``CrfModelMixin``, ``CrfNoManagerModelMixin`` or ``Requisition
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-form-runners.svg
   :target: https://pypi.python.org/pypi/edc-form-runners
 
-.. |actions| image:: https://github.com/clinicedc/edc-form-runners/workflows/build/badge.svg?branch=develop
-  :target: https://github.com/clinicedc/edc-form-runners/actions?query=workflow:build
+.. |actions| image:: https://github.com/clinicedc/edc-form-runners/actions/workflows/build.yml/badge.svg
+  :target: https://github.com/clinicedc/edc-form-runners/actions/workflows/build.yml
 
 .. |codecov| image:: https://codecov.io/gh/clinicedc/edc-form-runners/branch/develop/graph/badge.svg
   :target: https://codecov.io/gh/clinicedc/edc-form-runners
