@@ -138,6 +138,12 @@ or pass one or more model names (label_lower format) separated by comma:
 
     >>> python manage.py run_form_runners -m intecomm_subject.vitals,intecomm_subject.dmmedicationadherence
 
+You can skip a model as well:
+
+.. code-block:: bash
+
+    >>> python manage.py run_form_runners -a intecomm_subject -s intecomm_subject.medicationadherence
+
 ``Issue`` ChangeList
 ++++++++++++++++++++
 
