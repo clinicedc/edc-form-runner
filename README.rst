@@ -176,7 +176,6 @@ The ``post_save`` signal that updates Issues listens for ``clinicedc`` CRFs and 
 is an instance of ``CrfModelMixin``, ``CrfNoManagerModelMixin`` or ``RequisitionModelMixin``.
 
 
-
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-form-runners.svg
   :target: https://pypi.python.org/pypi/edc-form-runners
 
