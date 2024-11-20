@@ -187,4 +187,3 @@ is an instance of ``CrfModelMixin``, ``CrfNoManagerModelMixin`` or ``Requisition
 
 .. |downloads| image:: https://pepy.tech/badge/edc-form-runners
    :target: https://pepy.tech/project/edc-form-runners
-
